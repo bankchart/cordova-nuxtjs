@@ -1,5 +1,9 @@
 import axios from 'axios';
 
-export default axios.create({
+const httpCaller = axios.create({
   baseURL: process.env.baseUrl
 });
+
+export default (ctx, inject) => {
+  inject('axios', httpCaller);
+};

@@ -89,7 +89,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/kendoui.js', '~/plugins/vue-inject.js'],
+  plugins: [
+    '~/plugins/kendoui.js',
+    '~/plugins/vue-inject.js',
+    '~/plugins/vue-axios.js'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
