@@ -28,7 +28,6 @@
 </template>
 <script>
 export default {
-  layout: 'main',
   data() {
     return {
       date: new Date('2013/6/6'),
@@ -50,31 +49,31 @@ export default {
   },
   methods: {
     onChange(ev) {
-      console.log('Event :: change');
+      // console.log('Event :: change');
     },
     onEdit(ev) {
-      console.log('Event :: edit');
+      // console.log('Event :: edit');
     },
     onAdd(ev) {
-      console.log('Event :: add');
+      // console.log('Event :: add');
     },
     onCancel(ev) {
-      console.log('Event :: cancel');
+      // console.log('Event :: cancel');
     },
     onDataBound(ev) {
-      console.log('Event :: dataBound');
+      // console.log('Event :: dataBound');
     },
     onMove(ev) {
-      console.log('Event :: move');
+      // console.log('Event :: move');
     },
     onNavigate(ev) {
-      console.log('Event :: navigate');
+      // console.log('Event :: navigate');
     },
     onResize(ev) {
-      console.log('Event :: resize');
+      // console.log('Event :: resize');
     },
     onSave(ev) {
-      console.log('Event :: save');
+      // console.log('Event :: save');
     }
   }
 };

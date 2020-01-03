@@ -2,11 +2,13 @@ const fs = require('fs');
 
 const currPath = "./www/_nuxt";
 const newPath = "./www/nuxt";
- 
+
+console.log('Cordova Environment: ' + process);
+
 fs.rename(currPath, newPath, function(err) {
   if (err) {
-    console.log(err);
+    console.error(err);
   } else {
-    console.log("Successfully renamed the directory.");
+    console.info("Successfully renamed the directory.");
   }
 });

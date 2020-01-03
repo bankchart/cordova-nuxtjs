@@ -1,4 +1,4 @@
-console.log(`Environment: ${process.env.NUXT_ENV}`);
+console.info(`Environment: ${process.env.NUXT_ENV}`);
 
 function getConfigByEnvironment() {
   const buildCommon = {
@@ -8,13 +8,13 @@ function getConfigByEnvironment() {
         [
           '@nuxt/babel-preset-app',
           {
-            targets: isServer ? { node: '8.11.1' } : { browsers: ['defaults'] }
+            targets: isServer ? { node: '10.15.3' } : { browsers: ['defaults'] }
           }
         ]
       ]
     }
   };
-  if (process.env.NUXT_ENV === 'DEVICE') {
+  if (process.env.NUXT_ENV === 'DEVICE-LOCAL') {
     return {
       build: {
         extend(config, ctx) {
@@ -27,9 +27,15 @@ function getConfigByEnvironment() {
       }
     };
   } else if (process.env.NUXT_ENV === 'LOCAL') {
-    return { build: buildCommon };
+    return {
+      build: buildCommon,
+      env: require('./environment.json')
+    };
   } else {
-    return { build: buildCommon };
+    return {
+      build: buildCommon,
+      env: require('./environment.json')
+    };
   }
 }
 
@@ -37,7 +43,8 @@ export default {
   mode: 'spa',
   ...getConfigByEnvironment(),
   router: {
-    mode: 'hash'
+    mode: 'hash',
+    middleware: ['page-permission']
   },
   babel: {
     presets: ['es2015', 'stage-0'],
@@ -75,13 +82,14 @@ export default {
    ** Global CSS
    */
   css: [
+    '@/node_modules/bootstrap-4-grid/css/grid.css',
     { src: '@/assets/style.scss', lang: 'scss' },
     '@/node_modules/@progress/kendo-theme-default/dist/all.css'
   ],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/kendoui.js'],
+  plugins: ['~/plugins/kendoui.js', '~/plugins/vue-inject.js'],
   /*
    ** Nuxt.js dev-modules
    */

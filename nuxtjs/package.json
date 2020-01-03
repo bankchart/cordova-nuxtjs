@@ -26,6 +26,8 @@
     "@progress/kendo-scheduler-vue-wrapper": "^2019.3.1023",
     "@progress/kendo-theme-default": "^4.10.0",
     "@progress/kendo-ui": "^2019.3.1113",
+    "axios": "^0.19.0",
+    "bootstrap-4-grid": "^3.2.0",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {

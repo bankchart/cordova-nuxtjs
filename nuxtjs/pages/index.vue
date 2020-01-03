@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nuxt-link to="/schedule">calendar</nuxt-link>
     <ul>
       <li v-for="(text, index) of data" :key="index">{{ text }}</li>
     </ul>
@@ -14,7 +13,7 @@ export default {
     };
   },
   mounted() {
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 5; i++) {
       this.data.push(
         `${i +
           1} - Hi POC Mobile App Framework FrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFramework`
