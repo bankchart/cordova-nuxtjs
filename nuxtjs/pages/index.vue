@@ -3,6 +3,7 @@
     <ul>
       <li v-for="(text, index) of data" :key="index">{{ text }}</li>
     </ul>
+    {{ $t('appName') }}
   </div>
 </template>
 <script>

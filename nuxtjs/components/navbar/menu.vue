@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div v-if="!rerender">
     <kendo-toolbar>
       <kendo-toolbar-item
         @click="$router.push('/')"
+        :text="$t('appName')"
         type="button"
-        text="Dashboard"
       ></kendo-toolbar-item>
       <kendo-toolbar-item
         @click="$router.push('schedule')"
@@ -22,13 +22,9 @@
       >
       </kendo-toolbar-item>
       <kendo-toolbar-item
-        @click="$router.push('login')"
-        text="Login"
-        type="button"
-        overflow="always"
-      ></kendo-toolbar-item>
-      <kendo-toolbar-item
-        text="Logout"
+        ref="test_toolbar"
+        @click="switchLang"
+        :text="this.$i18n.locale === 'th' ? 'EN' : 'TH'"
         type="button"
         overflow="always"
       ></kendo-toolbar-item>
@@ -36,5 +32,27 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      rerender: false
+    };
+  },
+  beforeDestroy() {
+    console.info('before destroy');
+  },
+  methods: {
+    switchLang() {
+      this.rerender = true;
+      this.$i18n.locale = this.$i18n.locale === 'th' ? 'en' : 'th';
+      this.$nextTick(() => {
+        this.rerender = false;
+        console.info('re-render start...');
+        this.$nextTick(() => {
+          console.info('re-render end!');
+        });
+      });
+    }
+  }
+};
 </script>

@@ -1,0 +1,7 @@
+{
+  "appName": "Mobile App Framework",
+  "pages": {
+    "home": "Home",
+    "contact": "Contact"
+  }
+}

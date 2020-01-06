@@ -82,15 +82,16 @@ export default {
    ** Global CSS
    */
   css: [
+    '@/node_modules/@progress/kendo-theme-default/dist/all.css',
     '@/node_modules/bootstrap-4-grid/css/grid.css',
-    { src: '@/assets/style.scss', lang: 'scss' },
-    '@/node_modules/@progress/kendo-theme-default/dist/all.css'
+    { src: '@/assets/style.scss', lang: 'scss' }
   ],
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
     '~/plugins/kendoui.js',
+    '~/plugins/vue-i18n.js',
     '~/plugins/vue-inject.js',
     '~/plugins/vue-axios.js'
   ],
