@@ -3,6 +3,12 @@ export const actions = {
     const langs = state.session.languages;
     const langCookie = app.$utilities.getCookie('lang');
     const defaultLang = state.multiLanguage.default;
+    const token = app.$utilities.getCookie('token');
+
+    app.store.dispatch(
+      'modules/userDetail/authentication/setAccessToken',
+      token
+    );
 
     if (!langCookie) {
       app.$utilities.setCookie('lang', defaultLang);
