@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const httpCaller = axios.create({
-  baseURL: process.env.BASE_URL
+  baseURL: process.env.baseUrl
 });
 
 export default (ctx, inject) => {

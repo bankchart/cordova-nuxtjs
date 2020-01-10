@@ -1,3 +1,3 @@
 export default ({ app, store }) => {
-  console.info(app);
+  // console.info(app);
 };

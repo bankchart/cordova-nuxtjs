@@ -1,24 +1,35 @@
 <template>
   <div>
-    <ul>
-      <li v-for="(text, index) of data" :key="index">{{ text }}</li>
-    </ul>
     {{ $t('appName') }}
+    <button @click="setLang('en')">set cookie lang en</button>
+    <button @click="setLang('th')">set cookie lang th</button>
+    <button @click="callapi">test call api</button>
   </div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      data: []
+      data: [],
+      result: 'empty'
     };
   },
-  mounted() {
-    for (let i = 0; i < 5; i++) {
-      this.data.push(
-        `${i +
-          1} - Hi POC Mobile App Framework FrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFrameworkFramework`
-      );
+  mounted() {},
+  methods: {
+    callapi() {
+      this.$axios
+        .post('/auth')
+        .then((data) => {
+          console.info(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    setLang(lang) {
+      this.$utilities.setCookie('lang', lang);
     }
   }
 };

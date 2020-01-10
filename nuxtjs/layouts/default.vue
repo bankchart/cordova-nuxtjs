@@ -39,7 +39,7 @@ export default {
       const navbarHeight = this.$refs['default-header'].clientHeight || 0;
       const bodyHeight = this.$refs['default-body'].clientHeight || 0;
 
-      const styleValue = navbarHeight.toString().concat('px');
+      const styleValue = (navbarHeight + 15).toString().concat('px');
       this.$utilities.setStyleAttribute(
         this.vueComp,
         'default-body',
@@ -124,5 +124,8 @@ export default {
 .default-header--hidden {
   box-shadow: none;
   transform: translate3d(0, -100%, 0);
+}
+.default-body {
+  padding: 15px;
 }
 </style>

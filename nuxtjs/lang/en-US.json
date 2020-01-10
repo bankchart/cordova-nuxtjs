@@ -1,7 +1,9 @@
 {
   "appName": "Mobile App Framework",
   "pages": {
-    "home": "Home",
-    "contact": "Contact"
+    "dashboard": "Dashboard",
+    "schedule": "Schedule",
+    "contact": "Contact",
+    "options": "Options"
   }
 }

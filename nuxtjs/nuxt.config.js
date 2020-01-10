@@ -93,7 +93,8 @@ export default {
     '~/plugins/kendoui.js',
     '~/plugins/vue-i18n.js',
     '~/plugins/vue-inject.js',
-    '~/plugins/vue-axios.js'
+    '~/plugins/vue-axios.js',
+    '~/plugins/nuxt-client-init.js'
   ],
   /*
    ** Nuxt.js dev-modules
@@ -102,5 +103,8 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: []
+  modules: ['@nuxtjs/style-resources'],
+  styleResources: {
+    scss: ['~assets/variables.scss']
+  }
 };

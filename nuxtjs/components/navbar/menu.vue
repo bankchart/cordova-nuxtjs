@@ -1,15 +1,15 @@
 <template>
-  <div v-if="!rerender">
+  <div v-if="!reRender">
     <kendo-toolbar>
       <kendo-toolbar-item
         @click="$router.push('/')"
-        :text="$t('appName')"
+        :text="$t('pages.dashboard')"
         type="button"
       ></kendo-toolbar-item>
       <kendo-toolbar-item
         @click="$router.push('schedule')"
+        :text="$t('pages.schedule')"
         type="button"
-        text="Schedule"
       ></kendo-toolbar-item>
       <kendo-toolbar-item
         :menu-buttons="[
@@ -17,14 +17,14 @@
           { text: 'between', icon: 'insert-middle' },
           { text: 'below', icon: 'insert-down' }
         ]"
+        :text="$t('pages.options')"
         type="splitButton"
-        text="Options"
       >
       </kendo-toolbar-item>
       <kendo-toolbar-item
         ref="test_toolbar"
         @click="switchLang"
-        :text="this.$i18n.locale === 'th' ? 'EN' : 'TH'"
+        :text="switchLangTextButton"
         type="button"
         overflow="always"
       ></kendo-toolbar-item>
@@ -32,25 +32,33 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
-      rerender: false
+      reRender: false
     };
   },
-  beforeDestroy() {
-    console.info('before destroy');
+  computed: {
+    ...mapGetters({
+      currentLang: 'multiLanguage/currentLang'
+    }),
+    switchLangTextButton() {
+      return this.$i18n.locale === 'th' ? 'EN' : 'TH';
+    }
   },
+  mounted() {},
+  beforeDestroy() {},
   methods: {
     switchLang() {
-      this.rerender = true;
       this.$i18n.locale = this.$i18n.locale === 'th' ? 'en' : 'th';
+      this.reRenderElement();
+    },
+    reRenderElement() {
+      this.reRender = true;
       this.$nextTick(() => {
-        this.rerender = false;
-        console.info('re-render start...');
-        this.$nextTick(() => {
-          console.info('re-render end!');
-        });
+        this.reRender = false;
       });
     }
   }
