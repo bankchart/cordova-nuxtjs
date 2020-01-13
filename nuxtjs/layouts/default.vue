@@ -10,14 +10,17 @@
     <div ref="default-body" class="default-body">
       <nuxt />
     </div>
+    <ripple-loading />
   </div>
 </template>
 <script>
 import NavbarMenu from '~/components/navbar/menu.vue';
+import RippleLoading from '~/components/loading/ripple.vue';
 
 export default {
   components: {
-    NavbarMenu
+    NavbarMenu,
+    RippleLoading
   },
   data() {
     return {
@@ -103,8 +106,7 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-@import 'assets/variables.scss';
+<style lang="scss" scopped>
 .default-header {
   font-size: 0.9rem;
   color: #fff;

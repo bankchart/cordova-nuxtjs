@@ -14,65 +14,133 @@ app.use(bodyParser.raw());
 
 const port = 8080;
 
-const userDetail = {
-  username: 'xplink',
-  password: 'xplink'
-};
+const userDetail = [
+  {
+    username: 'xplink',
+    password: 'xplink'
+  },
+  {
+    username: 'xplink2',
+    password: 'xplink2'
+  },
+  {
+    username: 'xplink3',
+    password: 'xplink3'
+  },
+  {
+    username: 'xplink4',
+    password: 'xplink4'
+  },
+  {
+    username: 'xplink4',
+    password: 'xplink4'
+  }
+];
 const permissions = [
   '10001', '10002', '10003', '10004', '10005',
   '10006', '10007', '10008', '10009', '10010'
 ];
 
+const  errorStatus = {
+  PERMISSION_DENIED: {
+    success: false,
+    error: {
+      errorCode: 'B0000',
+      errorDesc: 'Permission denied'
+    }
+  },
+  UNAUTHORIZED: {
+    success: false,
+    error: {
+      errorCode: 'B0001',
+      errorDesc: 'Unauthorized'
+    }
+  },
+  INVALID_INPUT: {
+    success: false,
+    error: {
+      code: 'B0002',
+      desc: 'Invalid input' 
+    }
+  },
+  NOT_FOUND_USER: {
+    success: false,
+    error: {
+      code: 'B0003',
+      desc: 'Not found user' 
+    }
+  }
+}
+
 app.get('/', (req, res) => res.json(process.versions));
+
+app.post('/login', (req, res) => {
+  const user = req.body.data.user;
+  console.log(user);
+  for (let u of userDetail) {
+    if (JSON.stringify(u) === JSON.stringify(user)) {
+      const userEncrypt = encrypt(JSON.stringify(user));
+      const encryptTxtBase64 = Buffer.from(JSON.stringify(userEncrypt)).toString('base64');
+      res.json({
+        success: true,
+        data: {
+          token: encryptTxtBase64
+        }
+      });
+      break;
+    }
+  }
+  res.json(errorStatus.NOT_FOUND_USER);
+});
 
 app.post('/auth', (req, res) => {
   tokenReq = req.headers.token;
   versionReq = req.headers.version;
   res.header('token', tokenReq);
   res.header('version', versionReq);
-  let response = {
-    success: false,
-    error: {
-      errorCode: 'B0000',
-      errorDesc: 'Permission denied'
-    }
-  };
+  let response = errorStatus.PERMISSION_DENIED;
+
+  if (!tokenReq) {
+    return res.status(401).json(errorStatus.UNAUTHORIZED);
+  }
 
   try {
     const encryptTxtBase64 = decodeBase64(tokenReq);
     const encryptTxt = JSON.parse(encryptTxtBase64);
     const user = decrypt(encryptTxt);
 
-    if (JSON.stringify(userDetail) === user) {
-      response = {
-        success: true,
-        data: {
-          permissions
-        }
-      };
+    for (let u of userDetail) {
+      if (JSON.stringify(u) === user) {
+        response = {
+          success: true,
+          data: {
+            permissions
+          }
+        };
+        break;
+      }
     }
     return res.json(response);
   } catch (err) {
-    return res.json(response);
+    return res.status(403).json(response);
   }
-
-  res.json(response);
 });
 
 // const key = crypto.randomBytes(32);
 // const accessToken = 'eyJpdiI6IjZlYTRiYjgwNDk3NDNiNTZkYmYwYzcyYjRiNmQzMGYxIiwiZW5jcnlwdGVkRGF0YSI6IjllNTA4MzAwNTE1NGMxNzIzM2JkMDk0YmY1MDI3N2JmZmExMjlkNjNkYTk5OTk1MjY2Zjc2YTM1MzIzMWNlODNjZGMxN2JlN2U5ZjI2Y2U3MWYwMGNiY2EzNGRhNzlmMiJ9'
 
-// function encrypt(text) {
-//   let iv = crypto.randomBytes(16);
-//   let cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
-//   let encrypted = cipher.update(text);
-//   encrypted = Buffer.concat([encrypted, cipher.final()]);
-//   return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
-// }
+const keyBase64 = 'eyJ0eXBlIjoiQnVmZmVyIiwiZGF0YSI6WzEyOSw1NSwyMjUsNDYsMjM5LDEwOCwyMjgsMTY1LDgzLDE1MiwxNjUsMTcwLDIzOCwxMTUsMTk0LDE5Niw1MCwxODIsMTYwLDEwMywyMDgsMjQ4LDEzNiw5OCwyNDMsMTg1LDIxMSwxNTIsMTM3LDQ2LDAsMTYxXX0=';
+const key =  JSON.parse(decodeBase64(keyBase64));
+
+function encrypt(text) {
+  let iv = crypto.randomBytes(16);
+  let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
+  let encrypted = cipher.update(text);
+  encrypted = Buffer.concat([encrypted, cipher.final()]);
+  return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+}
 
 function decrypt(text) {
-  const keyBase64 = 'eyJ0eXBlIjoiQnVmZmVyIiwiZGF0YSI6WzEyOSw1NSwyMjUsNDYsMjM5LDEwOCwyMjgsMTY1LDgzLDE1MiwxNjUsMTcwLDIzOCwxMTUsMTk0LDE5Niw1MCwxODIsMTYwLDEwMywyMDgsMjQ4LDEzNiw5OCwyNDMsMTg1LDIxMSwxNTIsMTM3LDQ2LDAsMTYxXX0=';
-  const key =  JSON.parse(decodeBase64(keyBase64));
   let iv = Buffer.from(text.iv, 'hex');
   let encryptedText = Buffer.from(text.encryptedData, 'hex');
   let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
