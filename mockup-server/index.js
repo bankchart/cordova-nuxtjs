@@ -17,23 +17,38 @@ const port = 8080;
 const userDetail = [
   {
     username: 'xplink',
-    password: 'xplink'
+    password: 'xplink',
+    firstName: 'fname-xplink',
+    lastName: 'lname-xplink',
+    displayName: 'displayName-xplink'
   },
   {
     username: 'xplink2',
-    password: 'xplink2'
+    password: 'xplink2',
+    firstName: 'fname-xplink2',
+    lastName: 'lname-xplink2',
+    displayName: 'displayName-xplink2'
   },
   {
     username: 'xplink3',
-    password: 'xplink3'
+    password: 'xplink3',
+    firstName: 'fname-xplink3',
+    lastName: 'lname-xplink3',
+    displayName: 'displayName-xplink3'
   },
   {
     username: 'xplink4',
-    password: 'xplink4'
+    password: 'xplink4',
+    firstName: 'fname-xplink4',
+    lastName: 'lname-xplink4',
+    displayName: 'displayName-xplink4'
   },
   {
-    username: 'xplink4',
-    password: 'xplink4'
+    username: 'xplink5',
+    password: 'xplink5',
+    firstName: 'fname-xplink5',
+    lastName: 'lname-xplink5',
+    displayName: 'displayName-xplink5'
   }
 ];
 const permissions = [
@@ -75,22 +90,33 @@ const  errorStatus = {
 app.get('/', (req, res) => res.json(process.versions));
 
 app.post('/login', (req, res) => {
+  let response = null;
   const user = req.body.data.user;
-  console.log(user);
   for (let u of userDetail) {
-    if (JSON.stringify(u) === JSON.stringify(user)) {
-      const userEncrypt = encrypt(JSON.stringify(user));
+    const userTmp = {
+      username: u.username,
+      password: u.password
+    };
+    if (JSON.stringify(userTmp) === JSON.stringify(user)) {
+      const userEncrypt = encrypt(JSON.stringify(userTmp));
       const encryptTxtBase64 = Buffer.from(JSON.stringify(userEncrypt)).toString('base64');
-      res.json({
+      const tmp = Object.assign({}, u);
+      tmp.password = undefined;
+      response = {
         success: true,
         data: {
-          token: encryptTxtBase64
+          token: encryptTxtBase64,
+          user: tmp
         }
-      });
+      };
       break;
     }
   }
-  res.json(errorStatus.NOT_FOUND_USER);
+  if (response) {
+    res.json(response);
+  } else {
+    res.status(401).json(errorStatus.NOT_FOUND_USER);
+  }
 });
 
 app.post('/auth', (req, res) => {
@@ -108,13 +134,19 @@ app.post('/auth', (req, res) => {
     const encryptTxtBase64 = decodeBase64(tokenReq);
     const encryptTxt = JSON.parse(encryptTxtBase64);
     const user = decrypt(encryptTxt);
-
     for (let u of userDetail) {
-      if (JSON.stringify(u) === user) {
+      const userTmp = {
+        username: u.username,
+        password: u.password
+      };
+      if (JSON.stringify(userTmp) === user) {
+        let tmp = Object.assign({}, u);
+        tmp.password = undefined;
         response = {
           success: true,
           data: {
-            permissions
+            permissions,
+            user: tmp
           }
         };
         break;

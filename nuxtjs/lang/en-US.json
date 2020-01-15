@@ -1,9 +1,12 @@
 {
   "appName": "Mobile App Framework",
+  "loading": "Loading...",
+  "loginLabel": "Login",
   "pages": {
     "dashboard": "Dashboard",
     "schedule": "Schedule",
     "contact": "Contact",
-    "options": "Options"
+    "options": "Options",
+    "login": "Login"
   }
 }

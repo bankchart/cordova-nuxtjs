@@ -22,6 +22,11 @@
       >
       </kendo-toolbar-item>
       <kendo-toolbar-item
+        @click="$router.push('login')"
+        :text="$t('pages.login')"
+        type="button"
+      ></kendo-toolbar-item>
+      <kendo-toolbar-item
         ref="test_toolbar"
         @click="switchLang"
         :text="switchLangTextButton"

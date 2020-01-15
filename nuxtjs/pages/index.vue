@@ -1,36 +1,9 @@
 <template>
   <div>
     {{ $t('appName') }}
-    <button @click="setLang('en')">set cookie lang en</button>
-    <button @click="setLang('th')">set cookie lang th</button>
-    <button @click="callapi">test call api</button>
-    <button @click="setToken">add access token</button>
-    <form
-      id="login-form"
-      ref="login-form"
-      @submit.prevent="loginFormSubmit"
-      class="login-form"
-    >
-      <input
-        ref="username"
-        v-model="user.username"
-        placeholder="Enter your username"
-        type="text"
-      />
-      <input
-        ref="password"
-        v-model="user.password"
-        placeholder="Enter your password"
-        type="password"
-      />
-      <button type="submit">LOGIN</button>
-    </form>
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
-import axios from 'axios';
-
 export default {
   data() {
     return {
@@ -41,20 +14,9 @@ export default {
         username: null,
         password: null
       },
-      result: 'empty',
-      count: 0,
       userAuthen: 'modules/userDetail/authentication'
     };
   },
-  computed: {
-    ...mapGetters({
-      loginStatus: 'modules/userDetail/authentication/currentLoginStatus'
-    })
-  },
-  watch: {
-    loginStatus(newLoginStatus, oldLoginStatus) {}
-  },
-  mounted() {},
   methods: {
     resetData() {
       this.user = {
@@ -63,29 +25,6 @@ export default {
       };
       this.data = [];
       this.result = 'empty';
-    },
-    loginFormSubmit() {
-      const result = this.$store.dispatch(`${this.userAuthen}/login`, {
-        user: this.user,
-        vueComp: this.vueComp
-      });
-      result
-        .then((res) => {
-          console.info(res);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-    callapi() {
-      this.$axios
-        .post('/auth')
-        .then((data) => {
-          console.info(data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
     },
     setLang(lang) {
       this.$utilities.setCookie('lang', lang);

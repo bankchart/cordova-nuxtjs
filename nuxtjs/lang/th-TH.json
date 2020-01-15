@@ -1,9 +1,12 @@
 {
   "appName": "โมบายแอพเฟรมเวิร์ค",
+  "loading": "Loading...",
+  "loginLabel": "เข้าสู่ระบบ",
   "pages": {
     "dashboard": "หน้าแรก",
     "schedule": "ตารางเวลา",
     "contact": "ติดต่อเรา",
-    "options": "เพิ่มเติม"
+    "options": "เพิ่มเติม",
+    "login": "เข้าสู่ระบบ"
   }
 }

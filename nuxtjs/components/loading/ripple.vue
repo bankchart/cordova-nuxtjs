@@ -2,7 +2,7 @@
   <div v-if="loading" class="loading-layout">
     <div class="center">
       <div class="lds-ripple">
-        <label>Loading...</label>
+        <label>{{ $t('loading') }}</label>
         <div></div>
         <div></div>
       </div>
@@ -20,14 +20,15 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loginStatus: 'modules/userDetail/authentication/currentLoginStatus'
+      loadingStatus: 'session/currentLoadingStatus'
     })
   },
   watch: {
-    loginStatus(newLoginStatus, oldLoginStatus) {
-      this.loading = newLoginStatus === 'loading';
+    loadingStatus(newLoadingStatus, oldLoadingStatus) {
+      this.loading = newLoadingStatus === 'loading';
     }
-  }
+  },
+  mounted() {}
 };
 </script>
 <style lang="scss" scoped>
