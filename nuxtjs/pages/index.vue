@@ -25,15 +25,6 @@ export default {
       };
       this.data = [];
       this.result = 'empty';
-    },
-    setLang(lang) {
-      this.$utilities.setCookie('lang', lang);
-    },
-    setToken() {
-      this.$utilities.setCookie(
-        'token',
-        'eyJpdiI6IjZlYTRiYjgwNDk3NDNiNTZkYmYwYzcyYjRiNmQzMGYxIiwiZW5jcnlwdGVkRGF0YSI6IjllNTA4MzAwNTE1NGMxNzIzM2JkMDk0YmY1MDI3N2JmZmExMjlkNjNkYTk5OTk1MjY2Zjc2YTM1MzIzMWNlODNjZGMxN2JlN2U5ZjI2Y2U3MWYwMGNiY2EzNGRhNzlmMiJ9'
-      );
     }
   }
 };

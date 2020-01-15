@@ -2,6 +2,7 @@
   "appName": "โมบายแอพเฟรมเวิร์ค",
   "loading": "Loading...",
   "loginLabel": "เข้าสู่ระบบ",
+  "logoutLabel": "ออกจากระบบ",
   "pages": {
     "dashboard": "หน้าแรก",
     "schedule": "ตารางเวลา",

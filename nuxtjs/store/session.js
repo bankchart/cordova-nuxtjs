@@ -2,7 +2,8 @@ export const state = () => ({
   version: process.env.version || 'Undefined web version.',
   languages: ['th', 'en'],
   loadingStatus: null,
-  defaultLoadingStatus: 'idle'
+  defaultLoadingStatus: 'idle',
+  authorizePages: ['#/schedule']
 });
 
 export const getters = {

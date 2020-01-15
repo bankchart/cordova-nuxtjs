@@ -2,6 +2,7 @@
   "appName": "Mobile App Framework",
   "loading": "Loading...",
   "loginLabel": "Login",
+  "logoutLabel": "Logout",
   "pages": {
     "dashboard": "Dashboard",
     "schedule": "Schedule",

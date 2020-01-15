@@ -22,19 +22,23 @@ export const actions = {
     );
   },
   async loadUserPermissions({ commit }, app) {
-    console.info(app);
     app.store.dispatch('session/setLoadingStatus', 'loading');
+    const currentLogged = 'modules/userDetail/authentication/currentLogged';
     await setTimeout(async () => {
       await app.$axios
         .post('/auth')
         .then((res) => {
           app.store.dispatch('session/setLoadingStatus', 'success');
-          const data = res.data;
+          app.store.dispatch(
+            'modules/userDetail/authentication/setLogged',
+            true
+          );
+          const data = res.data.data;
           commit('SET_PERMISSIONS', data.permissions);
         })
         .catch((error) => {
           app.store.dispatch('session/setLoadingStatus', 'fail');
-          app.dtore.dispatch('modules/userDetail/authentication/resetState');
+          app.store.dispatch('modules/userDetail/authentication/resetState');
           if (error.response) {
             const data = error.response.data;
             if (!data.success && data.error.errorCode === 'B0001') {

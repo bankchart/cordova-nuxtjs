@@ -47,9 +47,7 @@ export default {
       this.loading = newLoadingStatus === 'loading';
     }
   },
-  mounted() {
-    console.info(this);
-  },
+  mounted() {},
   methods: {
     resetData() {
       this.user = {
@@ -64,7 +62,6 @@ export default {
       });
       result
         .then((res) => {
-          console.info(res);
           this.$utilities.setCookie('token', res.data.token);
           this.$router.push('/');
         })
