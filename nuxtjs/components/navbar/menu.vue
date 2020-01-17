@@ -15,15 +15,10 @@
       ></kendo-toolbar-item>
       <kendo-toolbar-item
         v-if="logged"
-        :menu-buttons="[
-          { text: 'above', icon: 'insert-up' },
-          { text: 'between', icon: 'insert-middle' },
-          { text: 'below', icon: 'insert-down' }
-        ]"
-        :text="$t('pages.options')"
-        type="splitButton"
-      >
-      </kendo-toolbar-item>
+        @click="$router.push('sample-form')"
+        :text="$t('pages.sampleForm')"
+        type="button"
+      ></kendo-toolbar-item>
       <kendo-toolbar-item
         v-if="!logged"
         @click="$router.push('login')"

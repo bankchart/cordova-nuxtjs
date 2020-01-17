@@ -54,6 +54,20 @@ const utilities = {
     if (refElm) {
       refElm.style[attrName] = value;
     }
+  },
+  addClass: (ref, className) => {
+    if (!ref.classList.contains(className)) {
+      ref.classList.add(className);
+      return true;
+    }
+    return false;
+  },
+  removeClass: (ref, className) => {
+    if (ref.classList.contains(className)) {
+      ref.classList.remove(className);
+      return true;
+    }
+    return false;
   }
 };
 

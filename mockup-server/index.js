@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const crypto = require('crypto');
+const delay = require('delay');
 
 const app = express();
 
@@ -88,6 +89,46 @@ const  errorStatus = {
 }
 
 app.get('/', (req, res) => res.json(process.versions));
+
+app.post('/save-profile', async (req, res) => {
+  const payload = req.body;
+  console.log(payload);
+  await delay(2000);
+  tokenReq = req.headers.token;
+  versionReq = req.headers.version;
+  res.header('token', tokenReq);
+  res.header('version', versionReq);
+  let response = errorStatus.PERMISSION_DENIED;
+
+  if (!tokenReq) {
+    return res.status(401).json(errorStatus.UNAUTHORIZED);
+  }
+
+  try {
+    const encryptTxtBase64 = decodeBase64(tokenReq);
+    const encryptTxt = JSON.parse(encryptTxtBase64);
+    const user = decrypt(encryptTxt);
+    for (let u of userDetail) {
+      const userTmp = {
+        username: u.username,
+        password: u.password
+      };
+      if (JSON.stringify(userTmp) === user) {
+        let tmp = Object.assign({}, u);
+        tmp.password = undefined;
+        response = {
+          success: true,
+          data: payload.data
+        };
+        break;
+      }
+    }
+    return res.json(response);
+  } catch (err) {
+    return res.status(403).json(response);
+  }
+
+});
 
 app.post('/login', (req, res) => {
   let response = null;

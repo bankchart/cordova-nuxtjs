@@ -3,7 +3,7 @@ export const state = () => ({
   languages: ['th', 'en'],
   loadingStatus: null,
   defaultLoadingStatus: 'idle',
-  authorizePages: ['#/schedule']
+  authorizePages: ['#/schedule', '#/sample-form']
 });
 
 export const getters = {

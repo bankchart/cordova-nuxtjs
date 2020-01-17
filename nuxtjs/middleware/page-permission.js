@@ -1,5 +1,5 @@
 export default ({ app, store }) => {
-  // console.info(app);
+  console.info(app);
   const currentPath = window.location.hash;
 
   if (currentPath.includes('#/login') && app.$utilities.getCookie('token')) {

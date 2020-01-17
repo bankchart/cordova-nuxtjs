@@ -3,10 +3,17 @@
   "loading": "Loading...",
   "loginLabel": "เข้าสู่ระบบ",
   "logoutLabel": "ออกจากระบบ",
+  "firstName": "ชื่อ",
+  "lastName": "นามสกุล",
+  "save": "บันทึก",
+  "invalid": "กรอกข้อมูลไม่ถูกต้อง",
+  "phoneNumber": "เบอร์โทรศัพท์",
+  "email": "อีเมล",
   "pages": {
     "dashboard": "หน้าแรก",
     "schedule": "ตารางเวลา",
     "contact": "ติดต่อเรา",
+    "sampleForm": "ฟอร์ม",
     "options": "เพิ่มเติม",
     "login": "เข้าสู่ระบบ"
   }

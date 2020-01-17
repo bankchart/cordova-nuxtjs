@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@progress/kendo-buttons-vue-wrapper": "^2019.3.1023",
+    "@progress/kendo-inputs-vue-wrapper": "^2020.1.115",
     "@progress/kendo-layout-vue-wrapper": "^2019.3.1023",
     "@progress/kendo-scheduler-vue-wrapper": "^2019.3.1023",
     "@progress/kendo-theme-default": "^4.10.0",

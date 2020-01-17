@@ -3,10 +3,17 @@
   "loading": "Loading...",
   "loginLabel": "Login",
   "logoutLabel": "Logout",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "save": "Save",
+  "invalid": "Invalid",
+  "phoneNumber": "Phone Number",
+  "email": "Email",
   "pages": {
     "dashboard": "Dashboard",
     "schedule": "Schedule",
     "contact": "Contact",
+    "sampleForm": "Sample Form",
     "options": "Options",
     "login": "Login"
   }
