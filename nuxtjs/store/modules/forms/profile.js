@@ -57,16 +57,20 @@ export const actions = {
   resetState({ commit }) {
     commit('RESET_STATE');
   },
-  saveProfile({ getters }, vueComp) {
+  saveProfile({ dispatch, getters }, vueComp) {
     return new Promise((resolve, reject) => {
       vueComp.$axios
         .post('/save-profile', {
           data: getters
         })
         .then((res) => {
+          dispatch('resetState');
           resolve(res.data.data);
         })
-        .catch((error) => reject(error));
+        .catch((error) => {
+          dispatch('resetState');
+          reject(error);
+        });
     });
   }
 };
